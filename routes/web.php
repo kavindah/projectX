@@ -12,6 +12,5 @@
 */
 
 Route::get('/', function () {
-    $tasks = \App\tasks::all();
-    return $tasks;
+    return view('welcome');
 });

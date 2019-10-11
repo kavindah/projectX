@@ -15,7 +15,6 @@ class taskscontroller extends Controller
     public function index()
     {
         $tasks = tasks::all();
-
         return response()->json($tasks);
     }
 
