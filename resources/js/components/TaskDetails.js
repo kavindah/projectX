@@ -8,6 +8,24 @@ export default class TaskDetails extends Component {
         this.state = {
             post: {}
         }
+
+        this.onChange = this.onChange.bind(this)
+    }
+
+    onChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    onEdit(itemid, e){
+        e.preventDefault()
+        var data = this.state.post
+                this.setState({
+                    id: data.id,
+                    title: data.title,
+                })
+
     }
 
     componentDidMount() {
@@ -21,10 +39,33 @@ export default class TaskDetails extends Component {
         });
     }
 
+
     render() {
         return (
             <div className="container">
                <h1>{this.state.post.title}</h1>
+                <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <div className="col-md-12">
+                            <input type="text"
+                                   className="form-control"
+                                   id="title"
+                                   name="title"
+                                   value={this.state.post.title || ''}
+                                   onChange={this.onChange.bind(this)}
+                            />
+                        </div>
+                    </div>
+                </form>
+                <button
+                    href = ""
+                    className="btn btn-info mr-1"
+                    onClick={this.onEdit.bind(
+                        this,
+                        this.state.post.id
+                    )}
+                >Edit</button>
             </div>
         );
     }
