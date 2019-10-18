@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 
 export default class Example extends Component {
 
@@ -11,9 +12,7 @@ export default class Example extends Component {
         }
     }
      componentWillMount() {
-        axios.get('/api/tasks', {
-            headers:  {'Content-type': 'application/json'}
-        }).then(
+        axios.get('/api/tasks').then(
             response=> {
                 this.setState({
                     tasks:response.data
@@ -27,13 +26,13 @@ export default class Example extends Component {
         return (
             <div className="container">
                 {this.state.tasks.map((task, key)=>(
-                    <div key={key}>{task.title}</div>
+                    <ul key={key}>
+                        <li>
+                            <Link to={"/tasks/" + task.id}>{task.title}</Link>
+                        </li>
+                    </ul>
                 ))}
             </div>
         );
     }
-}
-
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
 }
